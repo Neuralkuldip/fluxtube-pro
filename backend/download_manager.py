@@ -162,7 +162,14 @@ def download_video(
 
         with yt_dlp.YoutubeDL({
 
-            "quiet": True
+            "quiet": True,
+
+            "cookiefile": "cookies.txt",
+
+            "no_warnings": True,
+
+            "geo_bypass": True,
+
         }) as ydl:
 
             info = ydl.extract_info(
@@ -202,6 +209,18 @@ def download_video(
 
                 "ffmpeg_location":
                 FFMPEG_PATH,
+
+                "cookiefile":
+                "cookies.txt",
+
+                "quiet":
+                True,
+
+                "no_warnings":
+                True,
+
+                "geo_bypass":
+                True,
 
                 "progress_hooks":
                 [progress_hook],
@@ -245,6 +264,18 @@ def download_video(
                 "ffmpeg_location":
                 FFMPEG_PATH,
 
+                "cookiefile":
+                "cookies.txt",
+
+                "quiet":
+                True,
+
+                "no_warnings":
+                True,
+
+                "geo_bypass":
+                True,
+
                 "progress_hooks":
                 [progress_hook],
             }
@@ -281,6 +312,8 @@ def download_video(
             "quality": quality,
 
             "type": media_type,
+
+            "url": url
         })
 
         return {
