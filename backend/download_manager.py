@@ -138,13 +138,13 @@ def download_video(
     quality_map = {
 
         "360p":
-        "bestvideo[height<=360]+bestaudio/best",
+        "bestvideo[height<=360]+bestaudio/best[height<=360]",
 
         "480p":
-        "bestvideo[height<=480]+bestaudio/best",
+        "bestvideo[height<=480]+bestaudio/best[height<=480]",
 
         "720p":
-        "bestvideo[height<=720]+bestaudio/best",
+        "bestvideo[height<=720]+bestaudio/best[height<=720]",
 
         "1080p":
         "bestvideo[height<=1080]+bestaudio/best",
@@ -252,7 +252,7 @@ def download_video(
 
                     quality,
 
-                    "bestvideo+bestaudio/best"
+                    "best"
                 ),
 
                 "merge_output_format":
