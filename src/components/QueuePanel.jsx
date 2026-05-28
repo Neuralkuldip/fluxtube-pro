@@ -6,7 +6,7 @@ export default function QueuePanel() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/queue")
+    fetch("https://fluxtube-api.onrender.com/queue")
       .then((res) => res.json())
       .then((data) => {
         setQueue(data);

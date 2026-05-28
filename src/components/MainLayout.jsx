@@ -9,7 +9,7 @@ export default function MainLayout() {
   const startDownload = (customUrl) => {
     const targetUrl = customUrl || url;
     if (!targetUrl) return;
-    const finalUrl = `http://127.0.0.1:5000/download?url=${encodeURIComponent(targetUrl)}&quality=1080p&type=MP4`;
+    const finalUrl = `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(targetUrl)}&quality=1080p&type=MP4`;
     window.open(finalUrl, "_blank");
   };
 

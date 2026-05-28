@@ -5,7 +5,7 @@ export default function DownloadHistory() {
   const [history, setHistory] = useState([]);
 
   const loadHistory = () => {
-    fetch("http://127.0.0.1:5000/history")
+    fetch("https://fluxtube-api.onrender.com/history")
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.log(err));
@@ -17,7 +17,7 @@ export default function DownloadHistory() {
 
   const clearAllHistory = async () => {
     try {
-      await fetch("http://127.0.0.1:5000/clear_history", { method: "POST" });
+      await fetch("https://fluxtube-api.onrender.com/clear_history", { method: "POST" });
       setHistory([]);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,7 @@ export default function DownloadHistory() {
   };
 
   const downloadAgain = (item) => {
-    const finalUrl = `http://127.0.0.1:5000/download?url=${encodeURIComponent(item.url)}&quality=${item.quality}&type=${item.type}`;
+    const finalUrl = `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(item.url)}&quality=${item.quality}&type=${item.type}`;
     window.open(finalUrl, "_blank");
   };
 

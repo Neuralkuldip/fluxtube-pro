@@ -86,7 +86,7 @@ export default function Hero() {
 
           const res = await fetch(
 
-            "http://127.0.0.1:5000/playlist",
+            "https://fluxtube-api.onrender.com/playlist",
 
             {
 
@@ -169,7 +169,7 @@ export default function Hero() {
 
           const res = await fetch(
 
-            "http://127.0.0.1:5000/video_info",
+            "https://fluxtube-api.onrender.com/video_info",
 
             {
 
@@ -244,7 +244,7 @@ export default function Hero() {
 
     const finalUrl =
 
-      `http://127.0.0.1:5000/download?url=${encodeURIComponent(customUrl)}&quality=${quality}&type=${type}`;
+      `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(customUrl)}&quality=${quality}&type=${type}`;
 
     window.open(
 
