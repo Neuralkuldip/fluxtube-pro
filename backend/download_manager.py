@@ -14,8 +14,6 @@ from history_manager import (
 
 DOWNLOAD_FOLDER = "downloads"
 
-FFMPEG_PATH = r"C:\Users\kuldip\Downloads\ffmpeg-8.1.1-essentials_build\ffmpeg-8.1.1-essentials_build\bin"
-
 
 def clean_filename(name):
 
@@ -137,7 +135,7 @@ def download_video(
 
     try:
 
-        # VIDEO INFO
+        # GET VIDEO INFO
 
         with yt_dlp.YoutubeDL({
 
@@ -174,7 +172,7 @@ def download_video(
             f"{title}_[{video_id}]"
         )
 
-        # MP3
+        # MP3 DOWNLOAD
 
         if media_type == "MP3":
 
@@ -185,9 +183,6 @@ def download_video(
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
-
-                "ffmpeg_location":
-                FFMPEG_PATH,
 
                 "cookiefile":
                 "cookies.txt",
@@ -220,7 +215,7 @@ def download_video(
                 ],
             }
 
-        # MP4
+        # MP4 DOWNLOAD
 
         else:
 
@@ -231,9 +226,6 @@ def download_video(
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
-
-                "ffmpeg_location":
-                FFMPEG_PATH,
 
                 "cookiefile":
                 "cookies.txt",
