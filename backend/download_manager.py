@@ -135,30 +135,9 @@ def download_video(
     media_type
 ):
 
-    quality_map = {
-
-        "360p":
-        "best[height<=360]",
-
-        "480p":
-        "best[height<=480]",
-
-        "720p":
-        "best[height<=720]",
-
-        "1080p":
-        "best[height<=1080]",
-
-        "1440p":
-        "best[height<=1440]",
-
-        "2160p":
-        "best[height<=2160]",
-    }
-
     try:
 
-        # GET VIDEO INFO
+        # VIDEO INFO
 
         with yt_dlp.YoutubeDL({
 
@@ -195,7 +174,7 @@ def download_video(
             f"{title}_[{video_id}]"
         )
 
-        # MP3 DOWNLOAD
+        # MP3
 
         if media_type == "MP3":
 
@@ -241,19 +220,14 @@ def download_video(
                 ],
             }
 
-        # MP4 DOWNLOAD
+        # MP4
 
         else:
 
             ydl_opts = {
 
                 "format":
-                quality_map.get(
-
-                    quality,
-
-                    "best"
-                ),
+                "best",
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
