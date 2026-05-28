@@ -138,22 +138,22 @@ def download_video(
     quality_map = {
 
         "360p":
-        "bestvideo[height<=360]+bestaudio/best[height<=360]",
+        "best[height<=360]",
 
         "480p":
-        "bestvideo[height<=480]+bestaudio/best[height<=480]",
+        "best[height<=480]",
 
         "720p":
-        "bestvideo[height<=720]+bestaudio/best[height<=720]",
+        "best[height<=720]",
 
         "1080p":
-        "bestvideo[height<=1080]+bestaudio/best",
+        "best[height<=1080]",
 
         "1440p":
-        "bestvideo[height<=1440]+bestaudio/best",
+        "best[height<=1440]",
 
         "2160p":
-        "bestvideo[height<=2160]+bestaudio/best",
+        "best[height<=2160]",
     }
 
     try:
@@ -195,14 +195,14 @@ def download_video(
             f"{title}_[{video_id}]"
         )
 
-        # MP3
+        # MP3 DOWNLOAD
 
         if media_type == "MP3":
 
             ydl_opts = {
 
                 "format":
-                "bestaudio/best",
+                "bestaudio",
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
@@ -241,7 +241,7 @@ def download_video(
                 ],
             }
 
-        # MP4
+        # MP4 DOWNLOAD
 
         else:
 
@@ -254,9 +254,6 @@ def download_video(
 
                     "best"
                 ),
-
-                "merge_output_format":
-                "mp4",
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
