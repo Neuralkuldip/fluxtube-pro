@@ -6,7 +6,7 @@ export default function QueuePanel() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://fluxtube-api.onrender.com/queue")
+    fetch("https://fluxtube-pro-production.up.railway.app/queue")
       .then((res) => res.json())
       .then((data) => {
         setQueue(data);

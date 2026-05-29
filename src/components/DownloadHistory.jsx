@@ -5,7 +5,7 @@ export default function DownloadHistory() {
   const [history, setHistory] = useState([]);
 
   const loadHistory = () => {
-    fetch("https://fluxtube-api.onrender.com/history")
+    fetch("https://fluxtube-pro-production.up.railway.app/history")
       .then((res) => res.json())
       .then((data) => setHistory(data))
       .catch((err) => console.log(err));
@@ -17,7 +17,7 @@ export default function DownloadHistory() {
 
   const clearAllHistory = async () => {
     try {
-      await fetch("https://fluxtube-api.onrender.com/clear_history", { method: "POST" });
+      await fetch("https://fluxtube-pro-production.up.railway.app/clear_history", { method: "POST" });
       setHistory([]);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,7 @@ export default function DownloadHistory() {
   };
 
   const downloadAgain = (item) => {
-    const finalUrl = `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(item.url)}&quality=${item.quality}&type=${item.type}`;
+    const finalUrl = `https://fluxtube-pro-production.up.railway.app/download?url=${encodeURIComponent(item.url)}&quality=${item.quality}&type=${item.type}`;
     window.open(finalUrl, "_blank");
   };
 

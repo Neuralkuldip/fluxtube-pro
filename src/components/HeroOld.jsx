@@ -86,7 +86,7 @@ export default function Hero() {
 
           const res = await fetch(
 
-            "https://fluxtube-api.onrender.com/playlist",
+            "https://fluxtube-pro-production.up.railway.app/playlist",
 
             {
 
@@ -169,7 +169,7 @@ export default function Hero() {
 
           const res = await fetch(
 
-            "https://fluxtube-api.onrender.com/video_info",
+            "https://fluxtube-pro-production.up.railway.app/video_info",
 
             {
 
@@ -244,7 +244,7 @@ export default function Hero() {
 
     const finalUrl =
 
-      `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(customUrl)}&quality=${quality}&type=${type}`;
+      `https://fluxtube-pro-production.up.railway.app/download?url=${encodeURIComponent(customUrl)}&quality=${quality}&type=${type}`;
 
     window.open(
 
