@@ -15,7 +15,7 @@ export default function MainLayout() {
     }
 
     const finalUrl =
-      `https://fluxtube-api.onrender.com/download?url=${encodeURIComponent(targetUrl)}`;
+      `https://fluxtube-pro-production.up.railway.app/download?url=${encodeURIComponent(targetUrl)}&`;
 
     window.open(finalUrl, "_blank");
   };
