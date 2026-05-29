@@ -1,28 +1,25 @@
 import yt_dlp
-
 import os
-
 import re
 
-from status_manager import (
-    download_status
-)
-
-from history_manager import (
-    save_history
-)
+from status_manager import download_status
+from history_manager import save_history
 
 DOWNLOAD_FOLDER = "downloads"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+COOKIE_FILE = os.path.join(
+    BASE_DIR,
+    "cookies.txt"
+)
 
 
 def clean_filename(name):
 
     name = re.sub(
-
         r'[\\/*?:"<>|]',
-
         "",
-
         name
     )
 
@@ -35,9 +32,7 @@ def progress_hook(d):
 
     if d["status"] == "downloading":
 
-        total = d.get(
-            "total_bytes"
-        ) or d.get(
+        total = d.get("total_bytes") or d.get(
             "total_bytes_estimate"
         )
 
@@ -46,102 +41,54 @@ def progress_hook(d):
             0
         )
 
-        if total:
+        percent = int(
+            downloaded * 100 / total
+        ) if total else 0
 
-            percent = int(
+        speed = d.get("speed")
+        eta = d.get("eta")
 
-                downloaded
-                * 100
-                / total
-            )
-
-        else:
-
-            percent = 0
-
-        speed = d.get(
-            "speed"
+        download_status["progress"] = percent
+        download_status["speed"] = (
+            f"{round(speed / 1024 / 1024, 2)} MB/s"
+            if speed else "0 MB/s"
         )
 
-        eta = d.get(
-            "eta"
+        download_status["eta"] = (
+            f"{eta} sec"
+            if eta else "0 sec"
         )
 
-        if speed:
-
-            speed = (
-                f"{round(speed / 1024 / 1024, 2)} MB/s"
-            )
-
-        else:
-
-            speed = "0 MB/s"
-
-        if eta:
-
-            eta = f"{eta} sec"
-
-        else:
-
-            eta = "0 sec"
-
-        download_status[
-            "progress"
-        ] = percent
-
-        download_status[
-            "speed"
-        ] = speed
-
-        download_status[
-            "eta"
-        ] = eta
-
-        download_status[
-            "downloaded"
-        ] = (
+        download_status["downloaded"] = (
             f"{round(downloaded / 1024 / 1024, 2)} MB"
         )
 
-        download_status[
-            "total"
-        ] = (
+        download_status["total"] = (
             f"{round(total / 1024 / 1024, 2)} MB"
+            if total else "0 MB"
         )
 
-        download_status[
-            "status"
-        ] = "downloading"
+        download_status["status"] = "downloading"
 
     elif d["status"] == "finished":
 
-        download_status[
-            "status"
-        ] = "finished"
-
-        download_status[
-            "progress"
-        ] = 100
+        download_status["status"] = "finished"
+        download_status["progress"] = 100
 
 
 def download_video(
-
     url,
-
     quality,
-
     media_type
 ):
 
     try:
 
-        # GET VIDEO INFO
-
         with yt_dlp.YoutubeDL({
 
             "quiet": True,
 
-            "cookiefile": "cookies.txt",
+            "cookiefile": COOKIE_FILE,
 
             "no_warnings": True,
 
@@ -150,42 +97,34 @@ def download_video(
         }) as ydl:
 
             info = ydl.extract_info(
-
                 url,
-
                 download=False
             )
 
             title = clean_filename(
-
                 info.get(
                     "title",
                     "video"
                 )
             )
 
-            video_id = info.get(
-                "id"
-            )
+            video_id = info.get("id")
 
         safe_name = (
             f"{title}_[{video_id}]"
         )
 
-        # MP3 DOWNLOAD
-
         if media_type == "MP3":
 
             ydl_opts = {
 
-                "format":
-                "bestaudio",
+                "format": "bestaudio",
 
                 "outtmpl":
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
 
                 "cookiefile":
-                "cookies.txt",
+                COOKIE_FILE,
 
                 "quiet":
                 True,
@@ -200,9 +139,7 @@ def download_video(
                 [progress_hook],
 
                 "postprocessors": [
-
                     {
-
                         "key":
                         "FFmpegExtractAudio",
 
@@ -215,8 +152,6 @@ def download_video(
                 ],
             }
 
-        # MP4 DOWNLOAD
-
         else:
 
             ydl_opts = {
@@ -228,7 +163,7 @@ def download_video(
                 f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
 
                 "cookiefile":
-                "cookies.txt",
+                COOKIE_FILE,
 
                 "quiet":
                 True,
@@ -248,25 +183,15 @@ def download_video(
         ) as ydl:
 
             ydl.extract_info(
-
                 url,
-
                 download=True
             )
 
-        # FINAL FILE
-
-        if media_type == "MP3":
-
-            filename = (
-                f"{safe_name}.mp3"
-            )
-
-        else:
-
-            filename = (
-                f"{safe_name}.mp4"
-            )
+        filename = (
+            f"{safe_name}.mp3"
+            if media_type == "MP3"
+            else f"{safe_name}.mp4"
+        )
 
         save_history({
 
@@ -280,17 +205,13 @@ def download_video(
         })
 
         return {
-
             "success": True,
-
             "file": filename,
         }
 
     except Exception as e:
 
         return {
-
             "success": False,
-
             "error": str(e)
         }
