@@ -200,16 +200,31 @@ def download_video(
             ydl_opts
         ) as ydl:
 
-            ydl.extract_info(
-                url,
-                download=True
+            info = ydl.extract_info(
+            url,
+            download=True
             )
 
-        filename = (
-            f"{safe_name}.mp3"
-            if media_type == "MP3"
-            else f"{safe_name}.mp4"
+        files = os.listdir(
+        DOWNLOAD_FOLDER
         )
+
+        matched_files = [
+
+        f for f in files
+
+        if safe_name in f
+        ]   
+
+        if not matched_files:
+
+            return {
+            "success": False,
+            "error": "Downloaded file not found"
+        }
+
+        filename = matched_files[0]
+
 
         save_history({
 
