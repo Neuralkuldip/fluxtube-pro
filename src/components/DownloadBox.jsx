@@ -74,7 +74,7 @@ export default function DownloadBox({ url, setUrl, startDownload }) {
           />
 
           <button
-            onClick={() => startDownload()}
+            onClick={() => startDownload(url, quality, format)}
             style={{
               height: '52px',
               padding: '0 32px',

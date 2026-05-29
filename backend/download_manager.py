@@ -153,29 +153,47 @@ def download_video(
             }
 
         else:
+            if quality == "720p":
+
+                selected_format = (
+                    "bestvideo[height<=720]+bestaudio/best[height<=720]"
+            )
+                
+            elif quality == "1080p":
+
+                selected_format = (
+                    "bestvideo[height<=1080]+bestaudio/best[height<=1080]"
+            )
+            elif quality == "4k":
+
+                selected_format = (
+                    "bestvideo[height<=2160]+bestaudio/best"
+            )
+            else:
+
+                selected_format = "best"
 
             ydl_opts = {
+                 "format":
+        selected_format,
 
-                "format":
-                "best",
+        "outtmpl":
+        f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
 
-                "outtmpl":
-                f"{DOWNLOAD_FOLDER}/{safe_name}.%(ext)s",
+        "cookiefile":
+        COOKIE_FILE,
 
-                "cookiefile":
-                COOKIE_FILE,
+        "quiet":
+        True,
 
-                "quiet":
-                True,
+        "no_warnings":
+        True,
 
-                "no_warnings":
-                True,
+        "geo_bypass":
+        True,
 
-                "geo_bypass":
-                True,
-
-                "progress_hooks":
-                [progress_hook],
+        "progress_hooks":
+        [progress_hook],
             }
 
         with yt_dlp.YoutubeDL(

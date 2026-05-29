@@ -6,19 +6,19 @@ export default function MainLayout() {
   const [active, setActive] = useState("downloader");
   const [url, setUrl] = useState("");
 
-  const startDownload = (customUrl) => {
-    const targetUrl = customUrl || url;
+  const startDownload = (customUrl, quality, format) => {
+  const targetUrl = customUrl || url;
 
-    if (!targetUrl) {
-      alert("Please enter a YouTube URL");
-      return;
-    }
+  if (!targetUrl) {
+    alert("Please enter a YouTube URL");
+    return;
+  }
 
-    const finalUrl =
-      `https://fluxtube-pro-production.up.railway.app/download?url=${encodeURIComponent(targetUrl)}&`;
+  const finalUrl =
+    `https://fluxtube-pro-production.up.railway.app/download?url=${encodeURIComponent(targetUrl)}&quality=${quality}&type=${format}`;
 
-    window.open(finalUrl, "_blank");
-  };
+  window.open(finalUrl, "_blank");
+};
 
   return (
     <div className="w-full min-h-screen bg-[#030207] text-white overflow-x-hidden relative font-sans antialiased flex flex-col justify-between">
